@@ -11,5 +11,4 @@ RUN set -eux && \
   apk update && \
   apk add --no-cache make
 
-#ENTRYPOINT ["./migrate.sh"]
 ENTRYPOINT []
