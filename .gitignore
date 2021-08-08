@@ -1,0 +1,12 @@
+# env file
+.env
+.envrc
+
+# IDEA setteing
+/.idea/
+lgtm-cat-migration.iml
+
+# Docker MySQL Volume
+/data
+
+/ecs/task_definition.json

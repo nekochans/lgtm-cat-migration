@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  migrate:
+    build:
+      context: .
+      dockerfile: docker/migrate/Dockerfile
+    command: 'tail -f /dev/null'
+    restart: always
+    environment:
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      - mysql
+  mysql:
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
