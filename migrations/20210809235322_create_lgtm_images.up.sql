@@ -5,7 +5,7 @@ CREATE TABLE `lgtm_images` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_lgtm_images_01` (`uuid`),
+  UNIQUE KEY `uq_lgtm_images_01` (`filename`),
   KEY `idx_lgtm_images_01` (`path`),
   KEY `idx_lgtm_images_02` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
