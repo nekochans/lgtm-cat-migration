@@ -74,6 +74,52 @@ ECSタスクで migration を実行します。
 - SecurityGroup
 - CloudWatch Logs
 
+### 前提条件
+
+データベースとユーザーが作成されている必要があります。
+
+#### DBへの接続
+
+踏み台用のコンテナから DB に接続します。
+
+下記のインストールが必要です。
+
+- AWS CLI v2 バージョン 2.1.31以降
+    - 参考：[AWS CLI バージョン 2 のインストール、更新、アンインストール - AWS Command Line Interface](https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/install-cliv2.html)
+- Session Manager プラグイン
+    - 参考：[(オプション) AWS CLI 用の Session Manager プラグインをインストールする - AWS Systems Manager](https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
+
+ECS Service `lgtm-cat-bastion-service` の Desired count を1に変更し、タスクを起動します。
+
+下記のコマンドを実行します。
+
+```shell
+aws ecs execute-command  \
+    --profile lgtm-cat \
+    --region ap-northeast-1 \
+    --cluster lgtm-cat-bastion-cluster \
+    --task <タスクID> \
+    --container bastion \
+    --command "/bin/sh" \
+    --interactive
+```
+
+#### データベースとユーザーの作成
+
+MySQL へ接続します。
+
+```
+mysql -h ホスト名 -P 3306 -u ユーザー名 -p
+```
+
+下記のコマンドを実行してデータベースとユーザーを作成してください。
+
+```sql
+CREATE DATABASE your_database;
+CREATE USER your_user@'%' IDENTIFIED WITH mysql_native_password BY 'YourPassword';
+GRANT ALL ON your_database.* TO 'your_user'@'%';
+```
+
 ### Docker イメージのビルドと ECR へのプッシュ
 
 Docker の新規作成時、変更時に実行します。
