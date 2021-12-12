@@ -23,7 +23,8 @@ export DB_NAME=DB名
 
 # ECS実行用
 export SUBNET_ID=ECSタスクを実行するサブネットグループID
-export SECURITY_GROUP_ID=ECSタスクに設定するセキュリテイグループ
+export STG_SECURITY_GROUP_ID=STG環境用 ECSタスクに設定するセキュリテイグループ
+export PROD_SECURITY_GROUP_ID=PROD環境用 ECSタスクに設定するセキュリテイグループ
 export ACCOUNT_ID=AWSのアカウントID
 ```
 
@@ -125,7 +126,7 @@ GRANT ALL ON your_database.* TO 'your_user'@'%';
 Docker の新規作成時、変更時に実行します。
 
 ```bash
-./push_ecr_local.sh
+./01_push_ecr_local.sh <stg|prod>
 ```
 
 ### ECS タスクの定義の作成
@@ -133,7 +134,7 @@ Docker の新規作成時、変更時に実行します。
 ECS タスクの定義の新規作成時、変更時に実行します。
 
 ```bash
-./create_ecs_task_local.sh
+./02_create_ecs_task_local.sh <stg|prod>
 ```
 
 ### ECS タスクの実行
@@ -141,5 +142,5 @@ ECS タスクの定義の新規作成時、変更時に実行します。
 migration の際に実行します。
 
 ```bash
-./execute_ecs_task_local.sh
+./03_execute_ecs_task_local.sh <stg|prod>
 ```
