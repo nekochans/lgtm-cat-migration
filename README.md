@@ -62,6 +62,8 @@ created ./migrations/20210807151547_create_users.down.sql
 
 Migration のロールバックを行う際は `./migrate_down.sh` を実行します。
 
+ローカル開発環境の場合、migrate コンテナ上で実行する必要があります。
+
 ## AWS 上での Migration 実行方法
 
 ECSタスクで migration を実行します。

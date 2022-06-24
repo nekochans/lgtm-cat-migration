@@ -12,6 +12,8 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
+    networks:
+      - lgtm-cat
     depends_on:
       - mysql
   mysql:
@@ -19,9 +21,14 @@ services:
       context: .
       dockerfile: docker/mysql/Dockerfile
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - '3306:3306'
     volumes:
       - ./data:/var/lib/mysql
       - ./docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - lgtm-cat
+networks:
+  lgtm-cat:
+    external: true
