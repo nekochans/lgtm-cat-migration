@@ -1,4 +1,4 @@
-FROM mysql:8.0.23
+FROM mysql:8.0.31
 
 COPY ./docker/mysql/config/my.cnf /etc/mysql/conf.d/my.cnf
 
